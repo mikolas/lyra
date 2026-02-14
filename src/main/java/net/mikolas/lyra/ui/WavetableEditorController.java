@@ -31,6 +31,9 @@ public class WavetableEditorController {
     @FXML private Label waveInfoLabel;
     
     @FXML private Label statusLabel;
+    
+    @FXML private MenuItem undoMenuItem;
+    @FXML private MenuItem redoMenuItem;
 
     @FXML private Canvas waveEditCanvas;
     @FXML private ToggleGroup morphGroup;
@@ -114,7 +117,15 @@ public class WavetableEditorController {
         // Initial render
         javafx.application.Platform.runLater(() -> {
             renderAll();
+            updateUndoRedoMenus();
         });
+    }
+    
+    private void updateUndoRedoMenus() {
+        if (undoMenuItem != null && redoMenuItem != null && wavetable != null) {
+            undoMenuItem.setDisable(!wavetable.canUndo());
+            redoMenuItem.setDisable(!wavetable.canRedo());
+        }
     }
 
     private void setupAudioImport() {
@@ -833,6 +844,7 @@ public class WavetableEditorController {
         render3D();
         renderCurrentWave();
         renderEditCanvas();
+        updateUndoRedoMenus();
         System.out.println("renderAll() complete");
     }
 
@@ -995,6 +1007,7 @@ public class WavetableEditorController {
         if (wavetable != null && wavetable.canUndo()) {
             wavetable.undo();
             renderAll();
+            updateUndoRedoMenus();
         }
     }
     
@@ -1002,6 +1015,7 @@ public class WavetableEditorController {
         if (wavetable != null && wavetable.canRedo()) {
             wavetable.redo();
             renderAll();
+            updateUndoRedoMenus();
         }
     }
     
