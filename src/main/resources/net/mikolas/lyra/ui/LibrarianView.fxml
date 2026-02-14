@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.mikolas.lyra.ui.LibrarianController"
+            prefWidth="1440" prefHeight="1000"
+            styleClass="librarian-root">
+
+    <stylesheets>
+        <URL value="@librarian.css" />
+    </stylesheets>
+
+    <!-- Menu Bar -->
+    <top>
+        <MenuBar fx:id="menuBar">
+            <!-- File Menu -->
+            <Menu text="File">
+                <MenuItem text="Import sounds from file..." onAction="#handleImport" accelerator="Shortcut+I"/>
+                <Menu text="Export sounds to file">
+                    <MenuItem text="Selected sounds..." onAction="#handleExportSelected"/>
+                    <MenuItem text="Current bank..." onAction="#handleExportBank"/>
+                    <MenuItem text="All sounds..." onAction="#handleExportAll"/>
+                </Menu>
+                <MenuItem text="Export/print sound list..." onAction="#handleExportList" accelerator="Shortcut+P"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Quit" onAction="#handleQuit" accelerator="Shortcut+Q"/>
+            </Menu>
+
+            <!-- Library Menu -->
+            <Menu text="Library">
+                <MenuItem text="New collection..." onAction="#handleNewCollection" accelerator="Shortcut+N"/>
+                <MenuItem text="Manage collections..." onAction="#handleManageCollections" accelerator="Shortcut+Shift+C"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="New tag..." onAction="#handleNewTag" accelerator="Shortcut+T"/>
+                <MenuItem text="Manage tags..." onAction="#handleManageTags" accelerator="Shortcut+Shift+T"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Find duplicate sounds..." onAction="#handleFindDuplicates" accelerator="Shortcut+D"/>
+            </Menu>
+
+            <!-- Dump Menu -->
+            <Menu text="Dump">
+                <MenuItem text="Dump sounds FROM Blofeld..." onAction="#handleDumpFrom" accelerator="Shortcut+Shift+F"/>
+                <Menu text="Dump sounds TO Blofeld">
+                    <MenuItem text="Selected sounds..." onAction="#handleDumpToSelected"/>
+                    <MenuItem text="Current bank..." onAction="#handleDumpToBank"/>
+                    <MenuItem text="All sounds..." onAction="#handleDumpToAll"/>
+                </Menu>
+            </Menu>
+
+            <!-- Tools Menu -->
+            <Menu text="Tools">
+                <MenuItem text="Sound Editor" onAction="#handleSoundEditor" accelerator="Shortcut+1" disable="true"/>
+                <MenuItem text="Multi Editor" onAction="#handleMultiEditor" accelerator="Shortcut+2"/>
+                <MenuItem text="Wavetable Editor" onAction="#handleWavetableEditor" accelerator="Shortcut+3"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Settings..." onAction="#handleSettings" accelerator="Shortcut+COMMA"/>
+            </Menu>
+
+            <!-- Help Menu -->
+            <Menu text="Help">
+                <MenuItem text="Help" onAction="#handleHelp" accelerator="F1"/>
+                <MenuItem text="MIDI Implementation Chart" onAction="#handleMidiChart"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="About Lyra" onAction="#handleAbout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <HBox spacing="0">
+            <!-- Sidebar TreeView (250px fixed) -->
+            <VBox styleClass="sidebar" prefWidth="250" minWidth="250" maxWidth="250">
+                <TreeView fx:id="libraryTree" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <!-- Main Panel -->
+            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                <!-- Tokenized Search Bar -->
+                <VBox styleClass="search-bar">
+                    <padding>
+                        <Insets top="12" right="12" bottom="12" left="12"/>
+                    </padding>
+                    
+                    <!-- Filter chips container + search field -->
+                    <FlowPane fx:id="filterChipsPane" hgap="8" vgap="8" styleClass="filter-chips-container">
+                        <Label text="🔍" styleClass="search-icon"/>
+                        <!-- Filter chips added dynamically here -->
+                        <TextField fx:id="searchField" promptText="Search..." styleClass="search-text-field" prefWidth="300"/>
+                    </FlowPane>
+                </VBox>
+
+                <!-- Sound Table -->
+                <TableView fx:id="soundTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="bankColumn" text="Bank" prefWidth="60"/>
+                        <TableColumn fx:id="programColumn" text="Prog" prefWidth="60"/>
+                        <TableColumn fx:id="nameColumn" text="Name" prefWidth="400"/>
+                        <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120"/>
+                    </columns>
+                </TableView>
+
+                <!-- Details Panel -->
+                <HBox styleClass="details-panel" spacing="12" alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets top="12" right="12" bottom="12" left="12"/>
+                    </padding>
+
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label fx:id="selectedNameLabel" text="Selected: (none)" styleClass="details-title"/>
+                        <Label fx:id="selectedInfoLabel" text="" styleClass="details-info"/>
+                        <FlowPane fx:id="selectedMetadataPane" hgap="8" vgap="4"/>
+                    </VBox>
+
+                    <Button text="Rename" onAction="#handleRename"/>
+                    <Button text="Duplicate" onAction="#handleDuplicate"/>
+                    <Button text="Delete" onAction="#handleDelete"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" spacing="12" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="8" right="12" bottom="8" left="12"/>
+            </padding>
+            <Label fx:id="statusLabel" text="0 sounds | 0 filtered | 0 selected" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            
+            <Separator orientation="VERTICAL"/>
+            
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="MIDI IN:" styleClass="midi-status-label"/>
+                <Label fx:id="midiInNameLabel" text="None" styleClass="midi-status-label"/>
+                <Label fx:id="midiInIndicator" text="●" styleClass="midi-indicator, midi-disconnected"/>
+                
+                <Separator orientation="VERTICAL"/>
+                
+                <Label text="MIDI OUT:" styleClass="midi-status-label"/>
+                <Label fx:id="midiOutNameLabel" text="None" styleClass="midi-status-label"/>
+                <Label fx:id="midiOutIndicator" text="●" styleClass="midi-indicator, midi-disconnected"/>
+            </HBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

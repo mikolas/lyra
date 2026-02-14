@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.LfoController"
+      styleClass="synth-panel">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="synth-panel-header" prefHeight="28">
+        <Label fx:id="lfoLabel" text="LFO 1" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="shapeCombo" prefWidth="100" styleClass="compact-combo"/>
+    </HBox>
+
+    <!-- Content -->
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <!-- 5-Column Dial Grid -->
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="speedDial" label="SPD" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="phaseDial" label="PHS" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="delayDial" label="DLY" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <Dial fx:id="keytrackDial" label="KEY" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="3"/>
+            <Dial fx:id="fadeDial" label="FADE" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="4"/>
+        </GridPane>
+
+        <!-- Footer Toggles -->
+        <HBox spacing="8" alignment="CENTER">
+            <ToggleButton fx:id="syncBtn" text="KEY SYNC" styleClass="compact-toggle" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <ToggleButton fx:id="clockedBtn" text="CLOCKED" styleClass="compact-toggle" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
+</VBox>

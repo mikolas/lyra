@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.DumpDialogController"
+      spacing="15"
+      prefWidth="500"
+      prefHeight="300"
+      style="-fx-padding: 20;">
+
+    <Label text="Dump Sounds from Blofeld" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    
+    <!-- Bank Selection -->
+    <VBox spacing="10">
+        <Label text="Select Bank:"/>
+        <HBox spacing="10">
+            <RadioButton fx:id="allBanksRadio" text="All Banks (1024 sounds)" selected="true">
+                <toggleGroup>
+                    <ToggleGroup fx:id="bankGroup"/>
+                </toggleGroup>
+            </RadioButton>
+        </HBox>
+        <HBox spacing="10">
+            <RadioButton text="Bank A" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank B" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank C" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank D" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank E" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank F" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank G" toggleGroup="$bankGroup"/>
+            <RadioButton text="Bank H" toggleGroup="$bankGroup"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Import Options -->
+    <VBox spacing="10">
+        <Label text="Import To:"/>
+        <CheckBox fx:id="saveToDatabaseCheck" text="Database" selected="true"/>
+        <CheckBox fx:id="saveToFileCheck" text="File (.mid)"/>
+    </VBox>
+    
+    <!-- Progress -->
+    <VBox spacing="5" VBox.vgrow="ALWAYS">
+        <Label fx:id="statusLabel" text="Ready to dump"/>
+        <ProgressBar fx:id="progressBar" prefWidth="Infinity" progress="0"/>
+        <Label fx:id="progressLabel" text="0 / 0 sounds received"/>
+    </VBox>
+    
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="startBtn" text="Start Dump" defaultButton="true" onAction="#handleStart"/>
+        <Button fx:id="cancelBtn" text="Cancel" onAction="#handleCancel"/>
+    </HBox>
+</VBox>

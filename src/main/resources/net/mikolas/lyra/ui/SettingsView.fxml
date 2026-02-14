@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.ChannelSelector?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.mikolas.lyra.ui.SettingsController"
+            prefWidth="900" prefHeight="500">
+    
+    <!-- Left: Navigation Tree -->
+    <left>
+        <TreeView fx:id="navigationTree" prefWidth="200" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10" left="10" bottom="10" right="5"/>
+            </BorderPane.margin>
+        </TreeView>
+    </left>
+    
+    <!-- Center: Content Pages -->
+    <center>
+        <VBox spacing="10" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10" left="5" bottom="10" right="10"/>
+            </BorderPane.margin>
+            
+            <!-- Page Title -->
+            <Label fx:id="pageTitle" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            
+            <Separator/>
+            
+            <!-- Stacked Pages -->
+            <StackPane fx:id="pageStack" VBox.vgrow="ALWAYS">
+                
+                <!-- MIDI Connections Page -->
+                <VBox fx:id="midiConnectionsPage" spacing="15" visible="false">
+                    <Label text="MIDI Connections" style="-fx-font-weight: bold;"/>
+                    
+                    <VBox spacing="10">
+                        <Label text="Input Devices:"/>
+                        <ListView fx:id="inputDevicesList" prefHeight="120"/>
+                    </VBox>
+                    
+                    <VBox spacing="10">
+                        <Label text="Output Devices:"/>
+                        <ListView fx:id="outputDevicesList" prefHeight="120"/>
+                    </VBox>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="autoConnectCheck" text="Auto-detect and connect to Blofeld"/>
+                        <Button fx:id="refreshDevicesBtn" text="Refresh Devices"/>
+                    </HBox>
+                </VBox>
+                
+                <!-- MIDI Configuration Page -->
+                <VBox fx:id="midiConfigPage" spacing="15" visible="false">
+                    <Label text="MIDI Configuration" style="-fx-font-weight: bold;"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Device ID:"/>
+                        <Spinner fx:id="deviceIdSpinner" prefWidth="80" editable="true"/>
+                        <Label fx:id="deviceIdHexLabel" text="(00h)"/>
+                        <Button fx:id="broadcastBtn" text="Broadcast (127)"/>
+                    </HBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Send Channels:"/>
+                        <ChannelSelector fx:id="sendChannelSelector"/>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Receive Channels:"/>
+                        <ChannelSelector fx:id="receiveChannelSelector"/>
+                    </VBox>
+                    
+                    <Button fx:id="detectBtn" text="Detect from Blofeld" maxWidth="200"/>
+                </VBox>
+                
+                <!-- Startup Page (Mockup) -->
+                <VBox fx:id="startupPage" spacing="15" visible="false">
+                    <Label text="Startup" style="-fx-font-weight: bold;"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Startup window:"/>
+                        <ComboBox fx:id="startupWindowCombo" prefWidth="200"/>
+                    </HBox>
+                    
+                    <CheckBox text="Show welcome dialog on last window closed"/>
+                    
+                    <Label text="Librarian" style="-fx-font-weight: bold;"/>
+                    <CheckBox text="Restore size and position"/>
+                    <CheckBox text="Restore last panel mode"/>
+                    
+                    <Label text="Editor" style="-fx-font-weight: bold;"/>
+                    <CheckBox text="Restore size and position"/>
+                </VBox>
+                
+                <!-- Editor Page (Mockup) -->
+                <VBox fx:id="editorPage" spacing="15" visible="false">
+                    <Label text="Editor" style="-fx-font-weight: bold;"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Autosave:"/>
+                        <ComboBox fx:id="autosaveCombo" prefWidth="200"/>
+                    </HBox>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="MIDI Receive:"/>
+                        <ComboBox fx:id="midiReceiveCombo" prefWidth="200"/>
+                    </HBox>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="MIDI Send:"/>
+                        <ComboBox fx:id="midiSendCombo" prefWidth="200"/>
+                    </HBox>
+                </VBox>
+                
+                <!-- Themes Page (Mockup) -->
+                <VBox fx:id="themesPage" spacing="15" visible="false">
+                    <Label text="Themes" style="-fx-font-weight: bold;"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Current theme:"/>
+                        <ComboBox fx:id="themeCombo" prefWidth="200"/>
+                        <Button text="Theme Editor..."/>
+                    </HBox>
+                    
+                    <Label text="Theme Preview:" style="-fx-font-weight: bold;"/>
+                    <HBox spacing="20" alignment="CENTER">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="Enabled"/>
+                            <Button text="Button"/>
+                            <CheckBox text="Checkbox"/>
+                            <Slider prefWidth="100"/>
+                        </VBox>
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="Disabled"/>
+                            <Button text="Button" disable="true"/>
+                            <CheckBox text="Checkbox" disable="true"/>
+                            <Slider prefWidth="100" disable="true"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+                
+                <!-- Database Page (Mockup) -->
+                <VBox fx:id="databasePage" spacing="15" visible="false">
+                    <Label text="Database" style="-fx-font-weight: bold;"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Database path:"/>
+                        <TextField fx:id="dbPathField" editable="false" HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="dbBrowseBtn" text="Browse..."/>
+                        <Button fx:id="dbRestoreBtn" text="Restore Default"/>
+                    </HBox>
+                    
+                    <CheckBox fx:id="backupEnabledCheck" text="Enable database backup (recommended)" selected="true"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Backup interval (minutes):"/>
+                        <Spinner fx:id="backupIntervalSpinner" prefWidth="80" editable="true">
+                            <valueFactory>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="5" max="30" initialValue="15"/>
+                            </valueFactory>
+                        </Spinner>
+                    </HBox>
+                </VBox>
+                
+                <!-- Miscellaneous Page (Mockup) -->
+                <VBox fx:id="miscPage" spacing="15" visible="false">
+                    <Label text="Miscellaneous" style="-fx-font-weight: bold;"/>
+                    
+                    <CheckBox fx:id="singleClickProgramChangeCheck" text="Single click sends Program Change"/>
+                    <Label text="WARNING: Activate only if completely sure..." 
+                           style="-fx-text-fill: orange; -fx-font-size: 10px;"/>
+                    
+                    <Separator/>
+                    
+                    <CheckBox fx:id="updateCheckCheck" text="Check for updates on startup"/>
+                </VBox>
+                
+            </StackPane>
+        </VBox>
+    </center>
+    
+    <!-- Bottom: Button Bar -->
+    <bottom>
+        <ButtonBar BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10" left="10" bottom="10" right="10"/>
+            </BorderPane.margin>
+            <buttons>
+                <Button fx:id="cancelBtn" text="Cancel" ButtonBar.buttonData="CANCEL_CLOSE"/>
+                <Button fx:id="okBtn" text="OK" defaultButton="true" ButtonBar.buttonData="OK_DONE"/>
+            </buttons>
+        </ButtonBar>
+    </bottom>
+    
+</BorderPane>

@@ -1,0 +1,15 @@
+{
+  "resources": {
+    "includes": [
+      { "pattern": ".*\\.fxml$" },
+      { "pattern": ".*\\.css$" },
+      { "pattern": ".*\\.png$" },
+      { "pattern": ".*\\.json$" },
+      { "pattern": ".*\\.ttf$" },
+      { "pattern": ".*\\.otf$" },
+      { "pattern": "com/sun/glass/.*" },
+      { "pattern": "com/sun/prism/.*" },
+      { "pattern": "com/sun/javafx/.*" }
+    ]
+  }
+}

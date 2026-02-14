@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.FilterController"
+      styleClass="synth-panel">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="6" styleClass="synth-panel-header" prefHeight="28">
+        <Label fx:id="filterLabel" text="FILTER 1" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="typeCombo" prefWidth="100" styleClass="compact-combo"/>
+        <ComboBox fx:id="routingCombo" prefWidth="70" visible="false" managed="false"/>
+    </HBox>
+
+    <!-- Content -->
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <!-- Row 1: Main (4 cols) -->
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="cutoffDial" label="CUTOFF" min="0" max="127" prefWidth="56" prefHeight="68" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="resonanceDial" label="RESON" min="0" max="127" prefWidth="56" prefHeight="68" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="driveDial" label="DRIVE" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <VBox spacing="2" alignment="CENTER" GridPane.columnIndex="3">
+                <Label text="CURVE" styleClass="tactical-label"/>
+                <ComboBox fx:id="driveCurveCombo" maxWidth="Infinity" styleClass="compact-combo"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Row 2: Mod (4 cols) -->
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="envModDial" label="ENV AMT" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="envVelDial" label="ENV VEL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="keytrackDial" label="KEYTRK" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <VBox spacing="2" alignment="CENTER" GridPane.columnIndex="3">
+                <Label text="MOD SRC" styleClass="tactical-label"/>
+                <ComboBox fx:id="modSourceCombo" maxWidth="Infinity" styleClass="compact-combo"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Row 3: Pan & FM (4 cols) -->
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="modAmtDial" label="MOD AMT" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="fmDial" label="FM" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="panDial" label="PAN" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <VBox spacing="2" alignment="CENTER" GridPane.columnIndex="3">
+                <Label text="PAN SRC" styleClass="tactical-label"/>
+                <ComboBox fx:id="panSourceCombo" maxWidth="Infinity" styleClass="compact-combo"/>
+            </VBox>
+        </GridPane>
+    </VBox>
+</VBox>

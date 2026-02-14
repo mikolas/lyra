@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="net.mikolas.lyra.ui.MultiBrowserController"
+      spacing="10" prefWidth="400" prefHeight="500" style="-fx-background-color: #121212;">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="MULTI BROWSER" style="-fx-text-fill: #00FFFF; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="searchField" promptText="Search Multis..." styleClass="tactical-text-field"/>
+
+    <ListView fx:id="multiList" VBox.vgrow="ALWAYS" styleClass="tactical-list-view"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="CANCEL" onAction="#handleCancel" styleClass="flat-button"/>
+        <Button text="LOAD" onAction="#handleLoad" styleClass="compact-button"/>
+    </HBox>
+</VBox>

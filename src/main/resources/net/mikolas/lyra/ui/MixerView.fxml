@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.MixerController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="28">
+        <Label text="MIXER" styleClass="synth-panel-title"/>
+    </HBox>
+
+    <HBox spacing="4" alignment="BOTTOM_CENTER" styleClass="synth-panel-content">
+        <!-- OSC 1 -->
+        <VBox alignment="CENTER" spacing="2">
+            <Label text="O1" styleClass="tactical-label"/>
+            <Slider fx:id="osc1LevelSlider" orientation="VERTICAL" prefHeight="80" min="0" max="127"/>
+            <Dial fx:id="osc1BalanceDial" label="BAL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+        </VBox>
+
+        <!-- OSC 2 -->
+        <VBox alignment="CENTER" spacing="2">
+            <Label text="O2" styleClass="tactical-label"/>
+            <Slider fx:id="osc2LevelSlider" orientation="VERTICAL" prefHeight="80" min="0" max="127"/>
+            <Dial fx:id="osc2BalanceDial" label="BAL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+        </VBox>
+
+        <!-- OSC 3 -->
+        <VBox alignment="CENTER" spacing="2">
+            <Label text="O3" styleClass="tactical-label"/>
+            <Slider fx:id="osc3LevelSlider" orientation="VERTICAL" prefHeight="80" min="0" max="127"/>
+            <Dial fx:id="osc3BalanceDial" label="BAL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+        </VBox>
+
+        <!-- RM -->
+        <VBox alignment="CENTER" spacing="2">
+            <Label text="RM" styleClass="tactical-label"/>
+            <Slider fx:id="rmLevelSlider" orientation="VERTICAL" prefHeight="80" min="0" max="127"/>
+            <Dial fx:id="rmBalanceDial" label="BAL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+        </VBox>
+
+        <!-- NS -->
+        <VBox alignment="CENTER" spacing="2">
+            <Label text="NS" styleClass="tactical-label"/>
+            <Slider fx:id="noiseLevelSlider" orientation="VERTICAL" prefHeight="80" min="0" max="127"/>
+            <HBox spacing="1">
+                <Dial fx:id="noiseBalanceDial" label="BAL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+                <Dial fx:id="noiseColorDial" label="COL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

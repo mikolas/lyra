@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.ArpPatternEditorController"
+      styleClass="sound-editor" spacing="0" prefWidth="1200" prefHeight="600">
+
+    <stylesheets>
+        <URL value="@synth.css" />
+    </stylesheets>
+
+    <!-- Header -->
+    <HBox spacing="20" alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="50">
+        <padding><Insets left="20" right="20"/></padding>
+        <Label text="ARPEGGIATOR STEP SEQUENCER" styleClass="synth-panel-title" style="-fx-font-size: 16px;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="MODE:" styleClass="tactical-label"/>
+            <Label fx:id="modeLabel" text="ON" styleClass="details-info" style="-fx-text-fill: #00FFFF;"/>
+            
+            <Label text="PTN:" styleClass="tactical-label"/>
+            <Label fx:id="patternLabel" text="USER" styleClass="details-info" style="-fx-text-fill: #00FFFF;"/>
+            
+            <Label text="CLOCK:" styleClass="tactical-label"/>
+            <Label fx:id="clockLabel" text="1/16" styleClass="details-info" style="-fx-text-fill: #00FFFF;"/>
+            
+            <Label text="TEMPO:" styleClass="tactical-label"/>
+            <Label fx:id="tempoLabel" text="120" styleClass="details-info" style="-fx-text-fill: #00FFFF;"/>
+        </HBox>
+
+        <Button text="CLOSE X" onAction="#handleClose" styleClass="compact-button" style="-fx-background-color: #333;"/>
+    </HBox>
+
+    <!-- Step Grid -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+        <HBox fx:id="stepContainer" spacing="2" style="-fx-background-color: #121212;">
+            <padding><Insets top="10" bottom="10" left="10" right="10"/></padding>
+            <!-- 16 steps will be injected here -->
+        </HBox>
+    </ScrollPane>
+
+    <!-- Footer Actions -->
+    <HBox spacing="15" alignment="CENTER_LEFT" styleClass="details-panel" prefHeight="60">
+        <padding><Insets left="20" right="20"/></padding>
+        <Button text="RESET ALL" onAction="#handleReset" styleClass="compact-button"/>
+        <Button text="SHIFT LEFT &lt;" onAction="#handleShiftLeft" styleClass="compact-button"/>
+        <Button text="SHIFT RIGHT &gt;" onAction="#handleShiftRight" styleClass="compact-button"/>
+        <Button text="RANDOMIZE" onAction="#handleRandomize" styleClass="compact-button"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="STEPS:" styleClass="tactical-label"/>
+            <Slider fx:id="lengthSlider" min="1" max="16" value="16" blockIncrement="1" majorTickUnit="1" minorTickCount="0" snapToTicks="true"/>
+            <Label fx:id="lengthLabel" text="16" styleClass="details-info"/>
+        </HBox>
+    </HBox>
+
+</VBox>

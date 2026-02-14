@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.EffectController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="synth-panel-header" prefHeight="28">
+        <Label fx:id="effectLabel" text="EFFECT 1" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="typeCombo" prefWidth="100"/>
+    </HBox>
+
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="mixDial" label="Mix" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="p1Dial" label="P1" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="p2Dial" label="P2" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="2"/>
+        </GridPane>
+
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="p3Dial" label="P3" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="p4Dial" label="P4" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="p5Dial" label="P5" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+        </GridPane>
+    </VBox>
+</VBox>

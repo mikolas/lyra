@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+<?import net.mikolas.lyra.ui.control.EnvelopeEditor?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.EnvelopeController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="synth-panel-header" prefHeight="28">
+        <Label fx:id="envLabel" text="FILTER ENV" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="modeCombo" prefWidth="100"/>
+    </HBox>
+
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <EnvelopeEditor fx:id="editor" prefHeight="56" minHeight="56" maxHeight="56"/>
+        
+        <GridPane hgap="2" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="aDial" label="A" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="dDial" label="D" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="sDial" label="S" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <Dial fx:id="rDial" label="R" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="3"/>
+        </GridPane>
+
+        <GridPane hgap="2" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="33.3" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="alDial" label="AL" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="d2Dial" label="D2" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="s2Dial" label="S2" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+        </GridPane>
+    </VBox>
+</VBox>

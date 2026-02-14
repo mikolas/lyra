@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+<?import net.mikolas.lyra.ui.control.MultiDisplay?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="net.mikolas.lyra.ui.MultiEditorController"
+      styleClass="sound-editor" prefWidth="1025" prefHeight="700">
+
+    <stylesheets>
+        <URL value="@synth.css"/>
+    </stylesheets>
+
+    <!-- BAND A: HEADER -->
+    <HBox fx:id="headerPane" styleClass="header-band" spacing="16" alignment="CENTER_LEFT" prefHeight="56" minHeight="56" maxHeight="56">
+        <padding>
+            <Insets left="16" right="16"/>
+        </padding>
+
+        <!-- Master Volume -->
+        <Dial fx:id="masterVolumeDial" label="VOL" min="0" max="127" prefWidth="40" prefHeight="50"/>
+
+        <!-- Tempo -->
+        <VBox alignment="CENTER_LEFT" spacing="2">
+            <Label text="TEMPO" styleClass="tactical-label"/>
+            <TextField fx:id="tempoField" prefWidth="50" style="-fx-alignment: CENTER;"/>
+        </VBox>
+
+        <!-- Multi Navigation & Display -->
+        <HBox alignment="CENTER_LEFT" spacing="4" HBox.hgrow="ALWAYS">
+            <Button text="&lt;" onAction="#handlePrevMulti" styleClass="compact-button" prefWidth="24" prefHeight="24"/>
+            <MultiDisplay fx:id="multiDisplay" HBox.hgrow="ALWAYS" prefHeight="40"/>
+            <Button text="&gt;" onAction="#handleNextMulti" styleClass="compact-button" prefWidth="24" prefHeight="24"/>
+        </HBox>
+
+        <!-- Action Grid -->
+        <GridPane hgap="4" vgap="4">
+            <Button fx:id="saveButton" text="SAVE" onAction="#handleSave" styleClass="compact-button" prefWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ToggleButton text="AUTO" styleClass="compact-toggle" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            
+            <Button fx:id="dumpButton" text="DUMP" onAction="#handleDump" styleClass="compact-button" prefWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ToggleButton text="AUTO" styleClass="compact-toggle" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            
+            <Button text="MANAGE" styleClass="compact-button" prefWidth="94" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2" maxHeight="Infinity"/>
+        </GridPane>
+
+        <Separator orientation="VERTICAL"/>
+
+        <!-- View Switcher -->
+        <GridPane hgap="4" vgap="4">
+            <fx:define>
+                <ToggleGroup fx:id="viewToggleGroup"/>
+            </fx:define>
+            <ToggleButton fx:id="groupEditToggle" text="GROUP" styleClass="compact-toggle" prefWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ToggleButton fx:id="mixerViewToggle" text="MIXER" styleClass="compact-toggle" toggleGroup="$viewToggleGroup" selected="true" prefWidth="50" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            
+            <ToggleButton fx:id="velViewToggle" text="VEL" styleClass="compact-toggle" toggleGroup="$viewToggleGroup" prefWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ToggleButton fx:id="keyViewToggle" text="KEY" styleClass="compact-toggle" toggleGroup="$viewToggleGroup" prefWidth="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+
+        <!-- Window Tools -->
+        <VBox spacing="4" alignment="TOP_RIGHT">
+            <Button text="X" styleClass="compact-button" style="-fx-font-size: 8px; -fx-padding: 2 4;"/>
+            <Button text="^" styleClass="compact-button" style="-fx-font-size: 8px; -fx-padding: 2 4;"/>
+        </VBox>
+    </HBox>
+
+    <!-- BAND B: CONTENT STACK -->
+    <StackPane VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="mixerScrollPane" fitToWidth="false" fitToHeight="true" style="-fx-background-color: #121212;">
+            <HBox fx:id="mixerHBox" spacing="5" style="-fx-background-color: #121212; -fx-padding: 10;">
+                <!-- 16 MultiStrip components will be added here dynamically -->
+            </HBox>
+        </ScrollPane>
+        <fx:include fx:id="velocityEditor" source="VelocityEditorView.fxml" visible="false"/>
+        <fx:include fx:id="keyEditor" source="KeyEditorView.fxml" visible="false"/>
+    </StackPane>
+
+    <!-- BAND C: FOOTER -->
+    <HBox styleClass="footer-band" prefHeight="32" minHeight="32" maxHeight="32" spacing="16" alignment="CENTER_LEFT">
+        <padding>
+            <Insets left="16" right="16"/>
+        </padding>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Region prefWidth="8" prefHeight="8" style="-fx-background-color: #333333; -fx-background-radius: 4px;"/>
+            <Label text="MIDI IN" styleClass="tactical-label"/>
+        </HBox>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Region prefWidth="8" prefHeight="8" style="-fx-background-color: #333333; -fx-background-radius: 4px;"/>
+            <Label text="MIDI OUT" styleClass="tactical-label"/>
+        </HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Blofeld Connected" styleClass="tactical-label"/>
+    </HBox>
+
+</VBox>

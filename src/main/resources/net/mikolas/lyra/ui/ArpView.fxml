@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.ArpController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="synth-panel-header" prefHeight="28">
+        <Label text="ARPEGGIATOR" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="modeCombo" prefWidth="80"/>
+    </HBox>
+
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <!-- Selectors -->
+        <GridPane hgap="4">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+            </columnConstraints>
+            <VBox spacing="1" GridPane.columnIndex="0">
+                <Label text="PTN" styleClass="tactical-label"/>
+                <ComboBox fx:id="patternCombo" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="1" GridPane.columnIndex="1">
+                <Label text="CLK" styleClass="tactical-label"/>
+                <ComboBox fx:id="clockCombo" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="1" GridPane.columnIndex="2">
+                <Label text="LEN" styleClass="tactical-label"/>
+                <ComboBox fx:id="lengthCombo" maxWidth="Infinity"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Dials & Extra Selects -->
+        <GridPane hgap="4" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="25" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="tempoDial" label="TEMPO" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="octaveDial" label="OCT" min="0" max="9" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <VBox spacing="1" alignment="CENTER" GridPane.columnIndex="2">
+                <Label text="DIR" styleClass="tactical-label" style="-fx-font-size: 8px;"/>
+                <ComboBox fx:id="directionCombo" maxWidth="Infinity" style="-fx-font-size: 8px;"/>
+            </VBox>
+            <VBox spacing="1" alignment="CENTER" GridPane.columnIndex="3">
+                <Label text="OCT" styleClass="tactical-label" style="-fx-font-size: 8px;"/>
+                <ComboBox fx:id="octaveRangeCombo" maxWidth="Infinity" style="-fx-font-size: 8px;"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Arp Step Visualizer Placeholder -->
+        <HBox spacing="1" alignment="BOTTOM_CENTER" prefHeight="14" styleClass="arp-step-visualizer">
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 10;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 7;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 12;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 5;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 11;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 8;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 13;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 6;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 10;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 7;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 12;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 4;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 9;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 6;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 11;"/>
+            <Region HBox.hgrow="ALWAYS" style="-fx-pref-height: 7;"/>
+        </HBox>
+
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ToggleButton fx:id="resetBtn" text="RESET" styleClass="compact-toggle"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="EDIT PATTERN..." onAction="#handleEditPattern" styleClass="compact-button"/>
+        </HBox>
+    </VBox>
+</VBox>

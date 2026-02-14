@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.OscillatorController"
+      styleClass="synth-panel">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="synth-panel-header" prefHeight="28">
+        <Label fx:id="oscLabel" text="OSC 1" styleClass="synth-panel-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="shapeCombo" prefWidth="100" styleClass="compact-combo"/>
+        <Button text="WT" fx:id="wtBrowserBtn" onAction="#handleWtBrowser" styleClass="compact-button" visible="false"/>
+    </HBox>
+
+    <!-- Content -->
+    <VBox spacing="4" styleClass="synth-panel-content">
+        <!-- Row 1: Tuning (5 cols) -->
+        <GridPane hgap="4" vgap="2" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="octaveDial" label="OCT" min="16" max="112" step="12" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="semitoneDial" label="SEMI" min="52" max="76" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="detuneDial" label="DET" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <Dial fx:id="bendDial" label="BEND" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="3"/>
+            <Dial fx:id="keytrackDial" label="KEY" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="4"/>
+        </GridPane>
+
+        <!-- Row 2: Waveshaping (5 cols) -->
+        <GridPane hgap="4" vgap="2" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="20" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="pwDial" label="PW" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="brillianceDial" label="BRIL" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="fmDial" label="FM" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="2"/>
+            <Dial fx:id="pwmDial" label="PWM" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="3"/>
+            <VBox spacing="2" alignment="CENTER" GridPane.columnIndex="4">
+                <ComboBox fx:id="fmSrcCombo" maxWidth="Infinity" styleClass="compact-combo"/>
+                <ComboBox fx:id="pwmSrcCombo" maxWidth="Infinity" styleClass="compact-combo"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Row 3: Bottom Bar -->
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label text="P.MOD" styleClass="tactical-label"/>
+            <ComboBox fx:id="pitchSrcCombo" prefWidth="75" styleClass="compact-combo"/>
+            <Dial fx:id="pitchAmtDial" label="Amt" min="0" max="127" prefWidth="36" prefHeight="45" styleClass="tactical-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ToggleButton fx:id="syncBtn" text="SYNC" styleClass="compact-toggle"/>
+            <ToggleButton fx:id="limitWtBtn" text="LIM WT" styleClass="compact-toggle" visible="false"/>
+        </HBox>
+    </VBox>
+</VBox>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.AmpController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="28">
+        <Label text="AMPLIFIER" styleClass="synth-panel-title"/>
+    </HBox>
+
+    <VBox spacing="8" styleClass="synth-panel-content">
+        <GridPane hgap="8" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="50" halignment="CENTER"/>
+            </columnConstraints>
+            <Dial fx:id="volumeDial" label="VOLUME" min="0" max="127" prefWidth="56" prefHeight="68" styleClass="tactical-label" GridPane.columnIndex="0"/>
+            <Dial fx:id="velocityDial" label="VELOCITY" min="0" max="127" prefWidth="56" prefHeight="68" styleClass="tactical-label" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <GridPane hgap="8" alignment="BOTTOM_CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                <ColumnConstraints percentWidth="50" halignment="CENTER"/>
+            </columnConstraints>
+            <VBox spacing="2" GridPane.columnIndex="0">
+                <Label text="MOD SRC" styleClass="tactical-label"/>
+                <ComboBox fx:id="modSourceCombo" maxWidth="Infinity"/>
+            </VBox>
+            <Dial fx:id="modAmountDial" label="MOD AMT" min="0" max="127" prefWidth="44" prefHeight="56" styleClass="tactical-label" GridPane.columnIndex="1"/>
+        </GridPane>
+    </VBox>
+</VBox>

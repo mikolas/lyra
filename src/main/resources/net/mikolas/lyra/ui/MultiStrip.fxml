@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="rootContainer"
+      fx:controller="net.mikolas.lyra.ui.MultiStripController"
+      styleClass="synth-panel" spacing="4" minWidth="130" prefWidth="130">
+
+    <stylesheets>
+        <URL value="@synth.css"/>
+    </stylesheets>
+
+    <!-- Header Row -->
+    <HBox fx:id="stripHeader" styleClass="synth-panel-header" alignment="CENTER_LEFT" spacing="6" prefHeight="24" minHeight="24">
+        <padding>
+            <Insets left="4" right="4"/>
+        </padding>
+        <CheckBox fx:id="selectCheck"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="partIdLabel" text="01" styleClass="synth-panel-title" style="-fx-font-size: 11px;"/>
+        <ToggleButton fx:id="muteButton" text="PLAY" styleClass="mute-button" prefWidth="40" style="-fx-font-size: 8px;"/>
+    </HBox>
+
+    <VBox styleClass="synth-panel-content" spacing="6" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="4" right="4" bottom="4" left="4"/>
+        </padding>
+
+        <!-- Sound Selection Stack -->
+        <VBox spacing="2">
+            <ComboBox fx:id="channelCombo" promptText="Ch" maxWidth="Infinity" styleClass="compact-combo"/>
+            <ComboBox fx:id="bankCombo" promptText="Bnk" maxWidth="Infinity" styleClass="compact-combo"/>
+            <ComboBox fx:id="programCombo" promptText="Prg" maxWidth="Infinity" styleClass="compact-combo"/>
+        </VBox>
+
+        <!-- Mix Section (Vertical Volume) -->
+        <VBox alignment="CENTER" spacing="2" VBox.vgrow="ALWAYS">
+            <Label text="VOL" styleClass="tactical-label" style="-fx-font-size: 8px;"/>
+            <Slider fx:id="volumeSlider" orientation="VERTICAL" minHeight="80" VBox.vgrow="ALWAYS"/>
+            <Slider fx:id="panSlider" orientation="HORIZONTAL" maxWidth="80"/>
+            <Label text="PAN" styleClass="tactical-label" style="-fx-font-size: 8px;"/>
+        </VBox>
+
+        <Separator/>
+
+        <!-- Transpose / Detune -->
+        <HBox spacing="4" alignment="CENTER">
+            <Dial fx:id="transposeDial" label="TRN" prefWidth="40"/>
+            <Dial fx:id="detuneDial" label="DET" prefWidth="40"/>
+        </HBox>
+
+        <!-- Velocity Jump -->
+        <VBox spacing="2">
+            <Button fx:id="velocityJumpBtn" text="VELOCITY" onAction="#handleJumpToVelocity" styleClass="flat-button" maxWidth="Infinity" style="-fx-font-size: 8px;"/>
+            <HBox spacing="4" alignment="CENTER">
+                <Dial fx:id="velLowSlider" label="LOW" prefWidth="35"/>
+                <Dial fx:id="velHighSlider" label="HIGH" prefWidth="35"/>
+            </HBox>
+        </VBox>
+
+        <!-- Key Jump -->
+        <VBox spacing="2">
+            <Button fx:id="keyJumpBtn" text="KEYS" onAction="#handleJumpToKeys" styleClass="flat-button" maxWidth="Infinity" style="-fx-font-size: 8px;"/>
+            <HBox spacing="4" alignment="CENTER">
+                <Dial fx:id="keyLowSlider" label="LOW" prefWidth="35"/>
+                <Dial fx:id="keyHighSlider" label="HIGH" prefWidth="35"/>
+            </HBox>
+        </VBox>
+
+        <Separator/>
+
+        <!-- Control Switches (3x3) -->
+        <GridPane hgap="2" vgap="2">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+            </columnConstraints>
+            <!-- Row 1: Input Sources -->
+            <ToggleButton fx:id="midiInCheck" text="MID" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ToggleButton fx:id="usbInCheck" text="USB" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <ToggleButton fx:id="localInCheck" text="LOC" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <!-- Row 2: Performance Controllers -->
+            <ToggleButton fx:id="modInCheck" text="MOD" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ToggleButton fx:id="pitchInCheck" text="PIT" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <ToggleButton fx:id="susInCheck" text="SUS" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <!-- Row 3: Protocol -->
+            <ToggleButton fx:id="pressInCheck" text="PRS" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <ToggleButton fx:id="editsInCheck" text="EDT" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <ToggleButton fx:id="prgInCheck" text="PRG" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        </GridPane>
+
+    </VBox>
+</VBox>

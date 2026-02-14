@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.mikolas.lyra.ui.WavetableEditorController"
+            prefWidth="911" prefHeight="689"
+            styleClass="wavetable-editor-root">
+
+    <stylesheets>
+        <URL value="@synth.css" />
+    </stylesheets>
+
+    <!-- Menu Bar -->
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="New Wavetable" onAction="#handleNew" accelerator="Shortcut+N"/>
+                <MenuItem text="Open..." onAction="#handleOpen" accelerator="Shortcut+O"/>
+                <MenuItem text="Save" onAction="#handleSave" accelerator="Shortcut+S"/>
+                <MenuItem text="Save As..." onAction="#handleSaveAs" accelerator="Shortcut+Shift+S"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Import Audio..." onAction="#handleImportAudio" accelerator="Shortcut+I"/>
+                <MenuItem text="Import MIDI/SysEx..." onAction="#handleImportMidi" accelerator="Shortcut+M"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Close" onAction="#handleClose" accelerator="Shortcut+W"/>
+            </Menu>
+            <Menu text="Edit">
+                <MenuItem text="Undo" onAction="#handleUndo" accelerator="Shortcut+Z"/>
+                <MenuItem text="Redo" onAction="#handleRedo" accelerator="Shortcut+Shift+Z"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Copy Wave" onAction="#handleCopyWave" accelerator="Shortcut+C"/>
+                <MenuItem text="Paste Wave" onAction="#handlePasteWave" accelerator="Shortcut+V"/>
+            </Menu>
+            <Menu text="Wavetable">
+                <MenuItem text="Add Keyframe" onAction="#handleAddKeyframe" accelerator="K"/>
+                <MenuItem text="Remove Keyframe" onAction="#handleRemoveKeyframe" accelerator="Shift+K"/>
+            </Menu>
+            <Menu text="View">
+                <MenuItem text="Toggle Mini View" onAction="#handleToggleMiniView"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Zoom In" onAction="#handleZoomIn" accelerator="Shortcut+Plus"/>
+                <MenuItem text="Zoom Out" onAction="#handleZoomOut" accelerator="Shortcut+Minus"/>
+            </Menu>
+            <Menu text="Dump">
+                <MenuItem text="Dump to Blofeld" onAction="#handleDump"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <HBox spacing="0">
+            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                <!-- Upper Section: Keyframe Timeline -->
+                <HBox spacing="0" prefHeight="120" styleClass="timeline-container">
+                    <ScrollPane fx:id="timelineScrollPane" HBox.hgrow="ALWAYS" 
+                                vbarPolicy="NEVER" hbarPolicy="ALWAYS" styleClass="timeline-scroll">
+                        <StackPane>
+                            <Canvas fx:id="timelineCanvas" height="100" width="8192"/>
+                        </StackPane>
+                    </ScrollPane>
+                    <VBox prefWidth="150" styleClass="mini-view-container" alignment="CENTER">
+                        <Canvas fx:id="miniViewCanvas" height="100" width="140"/>
+                        <Label text="Mini 3D View" styleClass="small-label"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Lower Section: Tabbed Editor -->
+                <TabPane fx:id="editorTabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+                    <Tab text="Full Table">
+                        <HBox spacing="0">
+                            <!-- 3D View and Player -->
+                            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                                <StackPane VBox.vgrow="ALWAYS" styleClass="canvas-background">
+                                    <Canvas fx:id="full3DCanvas" />
+                                </StackPane>
+                                <!-- Player Panel -->
+                                <HBox styleClass="player-panel" spacing="12" alignment="CENTER_LEFT">
+                                    <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
+                                    <Button text="▶" styleClass="player-button"/>
+                                    <Button text="■" styleClass="player-button"/>
+                                    <ToggleButton text="🔁" styleClass="player-button"/>
+                                    <Slider fx:id="volumeSlider" prefWidth="150"/>
+                                    <Separator orientation="VERTICAL"/>
+                                    <Pane fx:id="pianoContainer" HBox.hgrow="ALWAYS"/>
+                                </HBox>
+                            </VBox>
+                            
+                            <!-- Right Panel: Parameters -->
+                            <VBox prefWidth="250" spacing="12" styleClass="side-panel">
+                                <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                                
+                                <TitledPane text="Wavetable Parameters" collapsible="false">
+                                    <VBox spacing="8">
+                                        <Label text="Name:"/>
+                                        <TextField fx:id="nameField"/>
+                                        <Label text="Slot:"/>
+                                        <ComboBox fx:id="slotCombo" maxWidth="Infinity"/>
+                                        <GridPane hgap="8" vgap="8">
+                                            <Button text="Save" onAction="#handleSave" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                            <Button text="Dump" onAction="#handleDump" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                            <Button text="Del" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                        </GridPane>
+                                    </VBox>
+                                </TitledPane>
+                                
+                                <TitledPane text="Current Wave" collapsible="false" VBox.vgrow="ALWAYS">
+                                    <VBox spacing="4" alignment="CENTER">
+                                        <Canvas fx:id="currentWaveCanvas" height="150" width="220"/>
+                                        <Label fx:id="waveInfoLabel" text="Wave: 32  Samples: 128" styleClass="small-label"/>
+                                    </VBox>
+                                </TitledPane>
+                            </VBox>
+                        </HBox>
+                    </Tab>
+                    
+                    <Tab text="Wave Edit">
+                        <HBox spacing="0">
+                            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                                <StackPane VBox.vgrow="ALWAYS" styleClass="canvas-background">
+                                    <Canvas fx:id="waveEditCanvas" />
+                                </StackPane>
+                                
+                                <!-- Harmonics Editor Panel -->
+                                <TitledPane text="Harmonics Editor" collapsible="true" expanded="false">
+                                    <VBox spacing="8">
+                                        <HBox spacing="12" alignment="CENTER_LEFT">
+                                            <ComboBox fx:id="harmonicsWaveTypeCombo" prefWidth="100"/>
+                                            <CheckBox fx:id="addHarmonicsChk" text="Add to existing wave"/>
+                                            <Button text="Apply Harmonics" onAction="#handleApplyHarmonics"/>
+                                            <Button text="Reset" onAction="#handleResetHarmonics"/>
+                                        </HBox>
+                                        <ScrollPane vbarPolicy="NEVER" hbarPolicy="ALWAYS" fitToHeight="true" minHeight="120">
+                                            <HBox fx:id="harmonicsContainer" spacing="4" alignment="BOTTOM_LEFT">
+                                                <!-- Sliders added dynamically -->
+                                            </HBox>
+                                        </ScrollPane>
+                                    </VBox>
+                                </TitledPane>
+
+                                <!-- Secondary Player for single wave -->
+                                <HBox styleClass="player-panel" spacing="12" alignment="CENTER_LEFT">
+                                    <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
+                                    <Button text="▶" styleClass="player-button"/>
+                                    <Button text="■" styleClass="player-button"/>
+                                    <CheckBox text="Computed" styleClass="small-label"/>
+                                    <Slider prefWidth="150"/>
+                                </HBox>
+                            </VBox>
+                            
+                            <VBox prefWidth="250" spacing="12" styleClass="side-panel">
+                                <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                                
+                                <TitledPane text="Morph Type" collapsible="false">
+                                    <VBox spacing="10">
+                                        <RadioButton fx:id="constantRadio" text="Constant">
+                                            <toggleGroup><ToggleGroup fx:id="morphGroup"/></toggleGroup>
+                                        </RadioButton>
+                                        <RadioButton fx:id="curveRadio" text="Curve" toggleGroup="$morphGroup" selected="true"/>
+                                        <HBox spacing="5" alignment="CENTER_LEFT">
+                                            <padding><Insets left="20"/></padding>
+                                            <ComboBox fx:id="curveFuncCombo" prefWidth="150"/>
+                                        </HBox>
+                                        <RadioButton fx:id="translateRadio" text="Translate" toggleGroup="$morphGroup"/>
+                                        <HBox spacing="5" alignment="CENTER_LEFT">
+                                            <padding><Insets left="20"/></padding>
+                                            <Label text="Offset:"/>
+                                            <Spinner fx:id="translateSpinner" prefWidth="80" editable="true"/>
+                                        </HBox>
+                                        <RadioButton fx:id="spectralRadio" text="Spectral" toggleGroup="$morphGroup"/>
+                                        
+                                        <Separator/>
+                                        <Button fx:id="applyMorphBtn" text="Apply" onAction="#handleApplyMorph" maxWidth="Infinity" styleClass="action-button"/>
+                                    </VBox>
+                                </TitledPane>
+                                
+                                <TitledPane text="Tools" collapsible="false" VBox.vgrow="ALWAYS">
+                                    <VBox spacing="8">
+                                        <Label text="Drawing Mode:" styleClass="section-label"/>
+                                        <HBox spacing="4">
+                                            <ToggleButton fx:id="freehandModeBtn" text="Freehand" selected="true" onAction="#handleFreehandMode" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                            <ToggleButton fx:id="lineModeBtn" text="Line" onAction="#handleLineMode" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                        </HBox>
+                                        
+                                        <Separator/>
+                                        <Label text="Wave Tools:" styleClass="section-label"/>
+                                        <GridPane hgap="8" vgap="8">
+                                            <Button fx:id="normalizeBtn" text="Normalize" onAction="#handleNormalize" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                            <Button fx:id="smoothBtn" text="Smooth" onAction="#handleSmooth" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                            <Button fx:id="invertBtn" text="Invert" onAction="#handleInvert" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                            <Button fx:id="reverseBtn" text="Reverse" onAction="#handleReverse" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                            <Button text="Generate..." maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
+                                        </GridPane>
+                                    </VBox>
+                                </TitledPane>
+                            </VBox>
+                        </HBox>
+                    </Tab>
+                    
+                    <Tab text="Audio Import">
+                        <VBox spacing="10">
+                            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                            <HBox spacing="10" VBox.vgrow="ALWAYS">
+                                <!-- Left: File Browser Placeholder -->
+                                <VBox prefWidth="250" spacing="5">
+                                    <Label text="File Browser" styleClass="small-label"/>
+                                    <ListView fx:id="audioFileListView" VBox.vgrow="ALWAYS"/>
+                                    <Button text="Browse..." onAction="#handleBrowseAudio" maxWidth="Infinity"/>
+                                </VBox>
+                                
+                                <!-- Right: Waveform Preview -->
+                                <VBox HBox.hgrow="ALWAYS" spacing="5">
+                                    <StackPane VBox.vgrow="ALWAYS" styleClass="canvas-background">
+                                        <Canvas fx:id="audioPreviewCanvas" />
+                                    </StackPane>
+                                    <HBox spacing="10" alignment="CENTER_LEFT">
+                                        <Label text="Offset:"/>
+                                        <Spinner fx:id="audioOffsetSpinner" prefWidth="100" editable="true"/>
+                                        <Label text="Selection:"/>
+                                        <Label fx:id="audioSelectionLabel" text="0 - 8192 (64 chunks)"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                            
+                            <HBox spacing="12" alignment="CENTER_RIGHT">
+                                <Button text="Import Full (64 chunks)" onAction="#handleImportFullAudio"/>
+                                <Button text="Import Selection" onAction="#handleImportSelectedAudio" styleClass="action-button"/>
+                            </HBox>
+                        </VBox>
+                    </Tab>
+                </TabPane>
+            </VBox>
+
+            <!-- Wavetable Dock (Library) -->
+            <VBox fx:id="wavetableDock" prefWidth="250" minWidth="250" styleClass="side-panel">
+                <TabPane VBox.vgrow="ALWAYS">
+                    <Tab text="Bigglesworth">
+                        <ListView fx:id="localWavetableList" VBox.vgrow="ALWAYS"/>
+                    </Tab>
+                    <Tab text="Blofeld">
+                        <ListView fx:id="factoryWavetableList" VBox.vgrow="ALWAYS"/>
+                    </Tab>
+                </TabPane>
+                <padding><Insets top="0" right="0" bottom="0" left="0"/></padding>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar" spacing="12" alignment="CENTER_LEFT">
+            <padding><Insets top="4" right="12" bottom="4" left="12"/></padding>
+            <Label text="MIDI IN:" styleClass="small-label"/>
+            <Label text="●" styleClass="midi-indicator, midi-disconnected"/>
+            <Label text="MIDI OUT:" styleClass="small-label"/>
+            <Label text="●" styleClass="midi-indicator, midi-disconnected"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusLabel" text="Ready" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

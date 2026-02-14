@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.CommonSectionController"
+      styleClass="synth-panel">
+
+    <HBox alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="28">
+        <Label text="COMMON &amp; GLIDE" styleClass="synth-panel-title"/>
+    </HBox>
+
+    <VBox spacing="8" styleClass="synth-panel-content">
+        <!-- Row 1: Allocation -->
+        <GridPane hgap="8" alignment="BOTTOM_CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="40" halignment="LEFT"/>
+                <ColumnConstraints percentWidth="30" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="30" halignment="CENTER"/>
+            </columnConstraints>
+            <VBox spacing="2" GridPane.columnIndex="0">
+                <Label text="ALLOC" styleClass="tactical-label"/>
+                <ComboBox fx:id="allocationCombo" maxWidth="Infinity"/>
+            </VBox>
+            <Dial fx:id="unisonDetuneDial" label="UNIDET" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="1"/>
+            <Dial fx:id="pitchBendRangeDial" label="PBEND" min="0" max="24" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+        </GridPane>
+
+        <!-- Row 2: Glide -->
+        <GridPane hgap="8" alignment="BOTTOM_CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="30" halignment="CENTER"/>
+                <ColumnConstraints percentWidth="40" halignment="LEFT"/>
+                <ColumnConstraints percentWidth="30" halignment="CENTER"/>
+            </columnConstraints>
+            <ToggleButton fx:id="glideBtn" text="GLIDE" styleClass="compact-toggle" maxWidth="Infinity" GridPane.columnIndex="0"/>
+            <VBox spacing="2" GridPane.columnIndex="1">
+                <Label text="MODE" styleClass="tactical-label"/>
+                <ComboBox fx:id="glideModeCombo" maxWidth="Infinity"/>
+            </VBox>
+            <Dial fx:id="glideRateDial" label="RATE" min="0" max="127" prefWidth="36" prefHeight="50" styleClass="tactical-label" GridPane.columnIndex="2"/>
+        </GridPane>
+    </VBox>
+</VBox>

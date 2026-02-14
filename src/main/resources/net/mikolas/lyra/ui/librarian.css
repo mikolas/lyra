@@ -1,0 +1,247 @@
+@import "synth.css";
+
+/* Librarian Specific Overrides & Extensions */
+/* Wrapped in .librarian-root to prevent leaking into the Sound Editor */
+
+.librarian-root {
+    /* --- TYPOGRAPHY BUMPS (+2px) --- */
+}
+
+.librarian-root .tactical-label {
+    -fx-font-size: 12px;
+}
+
+.librarian-root .combo-box, .librarian-root .text-field {
+    -fx-font-size: 13px;
+}
+
+.librarian-root .combo-box .list-cell {
+    -fx-font-size: 13px;
+}
+
+.librarian-root .synth-panel-title {
+    -fx-font-size: 13px;
+}
+
+/* --- LAYOUT STRUCTURE --- */
+
+.librarian-root .sidebar {
+    -fx-background-color: #171717; /* Tier 3: Recessed/Sidebar */
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 0 1 0 0;
+}
+
+.librarian-root .search-bar {
+    -fx-background-color: #1E1E1E; /* Tier 2: Panels */
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 0 0 1 0;
+}
+
+.librarian-root .details-panel {
+    -fx-background-color: #1E1E1E; /* Tier 2: Panels */
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1 0 0 0;
+}
+
+.librarian-root .status-bar {
+    -fx-background-color: #1E1E1E; /* Tier 2: Panels (Footer equivalent) */
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* --- COMPONENTS: SEARCH & FILTER --- */
+
+.librarian-root .filter-chips-container {
+    -fx-background-color: #121212; /* Tier 1: Input Field Background */
+    -fx-background-radius: 2px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-padding: 4px;
+    -fx-alignment: center-left;
+}
+
+.librarian-root .search-icon {
+    -fx-text-fill: #808080;
+    -fx-font-size: 14px;
+    -fx-padding: 0 4px 0 4px;
+}
+
+.librarian-root .search-text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #D4D4D4;
+    -fx-font-family: "Geist Mono";
+    -fx-font-size: 13px;
+    -fx-padding: 0;
+}
+
+.librarian-root .search-text-field:focused {
+    -fx-background-color: transparent; /* Remove default focus glow */
+}
+
+/* Chips */
+.librarian-root .filter-chip {
+    -fx-background-color: #2E2E2E;
+    -fx-background-radius: 2px;
+    -fx-border-color: #383838;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-padding: 2px 6px;
+    -fx-text-fill: #D4D4D4;
+    -fx-font-family: "Geist Mono Bold";
+    -fx-font-size: 12px;
+}
+
+.librarian-root .filter-chip:hover {
+    -fx-background-color: #383838;
+    -fx-text-fill: #FFFFFF;
+}
+
+.librarian-root .filter-chip .close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #808080;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 4px;
+    -fx-cursor: hand;
+}
+
+.librarian-root .filter-chip .close-button:hover {
+    -fx-text-fill: #00FFFF; /* Cyan accent on hover */
+}
+
+/* --- COMPONENTS: TABLE VIEW & TREE VIEW --- */
+
+.librarian-root .table-view, .librarian-root .tree-view {
+    -fx-background-color: #121212; /* Tier 1: Floor */
+    -fx-border-color: transparent;
+}
+
+.librarian-root .table-view .column-header-background {
+    -fx-background-color: #171717; /* Tier 3: Header */
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 0 0 1 0;
+}
+
+.librarian-root .table-view .column-header, .librarian-root .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 28px; /* Slightly taller header for larger font */
+    -fx-border-color: transparent #2E2E2E transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.librarian-root .table-view .column-header .label {
+    -fx-text-fill: #808080;
+    -fx-font-family: "Geist Mono Bold";
+    -fx-font-size: 11px;
+    -fx-alignment: center-left;
+    -fx-text-transform: uppercase;
+}
+
+.librarian-root .table-row-cell, .librarian-root .tree-cell {
+    -fx-background-color: #121212;
+    -fx-text-fill: #D4D4D4;
+    -fx-font-family: "Geist Mono";
+    -fx-font-size: 13px;
+    -fx-cell-size: 28px; /* Adjusted row height for 13px font */
+    -fx-border-color: #1A1A1A;
+    -fx-border-width: 0 0 1 0;
+}
+
+.librarian-root .table-row-cell:odd {
+    -fx-background-color: #141414; /* Very subtle striping */
+}
+
+.librarian-root .table-row-cell:filled:selected, 
+.librarian-root .tree-cell:filled:selected {
+    -fx-background-color: #1E1E1E; /* Panel color for selection background */
+    -fx-border-color: #00FFFF; /* Cyan border for selection */
+    -fx-border-width: 0 0 0 2; /* Left accent bar */
+    -fx-text-fill: #00FFFF; /* Cyan text for selection */
+}
+
+/* Ensure TableCells also inherit/use the selection color */
+.librarian-root .table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: #00FFFF;
+}
+
+.librarian-root .table-row-cell:filled:hover, .librarian-root .tree-cell:filled:hover {
+    -fx-background-color: #1A1A1A;
+}
+
+.librarian-root .table-view .scroll-bar:horizontal .track,
+.librarian-root .table-view .scroll-bar:vertical .track,
+.librarian-root .tree-view .scroll-bar:horizontal .track,
+.librarian-root .tree-view .scroll-bar:vertical .track {
+    -fx-background-color: #121212;
+    -fx-border-color: transparent;
+}
+
+.librarian-root .table-view .scroll-bar:horizontal .thumb,
+.librarian-root .table-view .scroll-bar:vertical .thumb,
+.librarian-root .tree-view .scroll-bar:horizontal .thumb,
+.librarian-root .tree-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #383838;
+    -fx-background-radius: 2px;
+}
+
+.librarian-root .table-view .scroll-bar:horizontal .thumb:hover,
+.librarian-root .table-view .scroll-bar:vertical .thumb:hover,
+.librarian-root .tree-view .scroll-bar:horizontal .thumb:hover,
+.librarian-root .tree-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #505050;
+}
+
+/* --- DETAILS PANEL --- */
+
+.librarian-root .details-title {
+    -fx-font-family: "Geist Mono Bold";
+    -fx-font-size: 13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-text-transform: uppercase;
+}
+
+.librarian-root .details-info { /* New class for info text */
+    -fx-font-family: "Geist Mono";
+    -fx-font-size: 12px;
+    -fx-text-fill: #808080;
+}
+
+/* --- STATUS BAR & MIDI --- */
+
+.librarian-root .midi-status-label {
+    -fx-font-family: "Geist Mono Bold";
+    -fx-font-size: 11px;
+    -fx-text-fill: #808080;
+    -fx-text-transform: uppercase;
+}
+
+.librarian-root .midi-indicator {
+    -fx-font-size: 12px;
+}
+
+.librarian-root .midi-connected {
+    -fx-text-fill: #00FFFF; /* Cyan for connected */
+}
+
+.librarian-root .midi-disconnected {
+    -fx-text-fill: #333333; /* Dark gray for disconnected */
+}
+
+/* Buttons in panels */
+.librarian-root .details-panel .button {
+    -fx-background-color: #171717;
+    -fx-text-fill: #808080;
+    -fx-font-family: "Geist Mono";
+    -fx-font-size: 12px;
+    -fx-background-radius: 2px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-padding: 4px 10px;
+}
+
+.librarian-root .details-panel .button:hover {
+    -fx-text-fill: #D4D4D4;
+    -fx-border-color: #404040;
+}

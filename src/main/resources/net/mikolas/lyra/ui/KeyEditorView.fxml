@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.PianoPreview?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="net.mikolas.lyra.ui.KeyEditorController"
+      style="-fx-background-color: #121212;" spacing="10">
+
+    <stylesheets>
+        <URL value="@synth.css"/>
+    </stylesheets>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Part List Header -->
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="30">
+        <padding><Insets left="10" right="10"/></padding>
+        <Label text="PART" prefWidth="40" styleClass="tactical-label"/>
+        <Label text="KEY RANGE (C-2 to G8)" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="tactical-label"/>
+    </HBox>
+
+    <!-- 16-Part Scrollable List -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+        <VBox fx:id="partsContainer" spacing="2" style="-fx-background-color: #121212;">
+            <!-- Rows will be injected here -->
+        </VBox>
+    </ScrollPane>
+
+    <!-- Bottom Interactive Graphic -->
+    <VBox prefHeight="150" minHeight="150" styleClass="synth-panel" alignment="CENTER">
+        <PianoPreview fx:id="pianoPreview" VBox.vgrow="ALWAYS"/>
+    </VBox>
+
+</VBox>

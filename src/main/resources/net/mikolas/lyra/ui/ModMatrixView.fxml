@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import net.mikolas.lyra.ui.control.Dial?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.mikolas.lyra.ui.ModMatrixController"
+      styleClass="sound-editor" spacing="0" prefWidth="1000" prefHeight="850">
+
+    <stylesheets>
+        <URL value="@synth.css" />
+    </stylesheets>
+
+    <!-- Header -->
+    <HBox spacing="20" alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="50">
+        <padding><Insets left="20" right="20"/></padding>
+        <Label text="MODULATION MATRIX" styleClass="synth-panel-title" style="-fx-font-size: 18px;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="CLOSE X" onAction="#handleClose" styleClass="compact-button" style="-fx-background-color: #333;"/>
+    </HBox>
+
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+        <padding><Insets top="10" bottom="10" left="10" right="10"/></padding>
+        
+        <!-- Mod Slots (Left Side) -->
+        <VBox spacing="5" HBox.hgrow="ALWAYS" styleClass="synth-panel">
+             <HBox alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="24">
+                <padding><Insets left="10"/></padding>
+                <Label text="MODULATION SLOTS" styleClass="synth-panel-title" style="-fx-font-size: 10px;"/>
+            </HBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="matrix-scroll-pane">
+                <GridPane fx:id="modGrid" hgap="10" vgap="2" style="-fx-background-color: #1e1e1e;">
+                    <padding><Insets top="5" bottom="5" left="5" right="5"/></padding>
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="30" halignment="CENTER"/> <!-- # -->
+                        <ColumnConstraints hgrow="ALWAYS" prefWidth="180"/> <!-- Source -->
+                        <ColumnConstraints prefWidth="60" halignment="CENTER"/> <!-- Amount -->
+                        <ColumnConstraints hgrow="ALWAYS" prefWidth="180"/> <!-- Destination -->
+                        <ColumnConstraints prefWidth="100" halignment="CENTER"/> <!-- Actions -->
+                    </columnConstraints>
+                    
+                    <!-- Header Row -->
+                    <Label text="#" styleClass="tactical-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label text="SOURCE" styleClass="tactical-label" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="AMOUNT" styleClass="tactical-label" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <Label text="DESTINATION" styleClass="tactical-label" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                    <Label text="ACTIONS" styleClass="tactical-label" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+                    
+                    <!-- 16 slots will be populated by controller -->
+                </GridPane>
+            </ScrollPane>
+        </VBox>
+
+        <!-- Modifiers (Right Side) -->
+        <VBox spacing="5" prefWidth="350" styleClass="synth-panel">
+            <HBox alignment="CENTER_LEFT" styleClass="synth-panel-header" prefHeight="24">
+                <padding><Insets left="10"/></padding>
+                <Label text="MODIFIERS" styleClass="synth-panel-title" style="-fx-font-size: 10px;"/>
+            </HBox>
+            <VBox fx:id="modifiersContainer" spacing="10" styleClass="synth-panel-content">
+                <padding><Insets top="10" bottom="10" left="10" right="10"/></padding>
+                <!-- 4 modifiers will be populated by controller -->
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <!-- Global Actions -->
+            <VBox spacing="10" styleClass="details-panel">
+                <padding><Insets top="15" bottom="15" left="15" right="15"/></padding>
+                <Button text="CLEAR ALL SLOTS" onAction="#handleClearAll" maxWidth="Infinity" styleClass="compact-button"/>
+                <Button text="RANDOMIZE MATRIX" onAction="#handleRandomize" maxWidth="Infinity" styleClass="compact-button"/>
+            </VBox>
+        </VBox>
+    </HBox>
+
+    <!-- Footer -->
+    <HBox spacing="15" alignment="CENTER_LEFT" styleClass="details-panel" prefHeight="40">
+        <padding><Insets left="20" right="20"/></padding>
+        <Label text="TOTAL MODULATIONS ACTIVE:" styleClass="tactical-label"/>
+        <Label fx:id="activeCountLabel" text="0" styleClass="details-info" style="-fx-text-fill: #00FFFF;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="LYRA BLOFELD MOD MATRIX REV 6" styleClass="tactical-label" style="-fx-opacity: 0.5;"/>
+    </HBox>
+
+</VBox>

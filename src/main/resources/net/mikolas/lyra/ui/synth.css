@@ -1,0 +1,232 @@
+@font-face {
+    font-family: 'Geist Mono';
+    src: url('../../../../geist-font/GeistMono/ttf/GeistMono-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Geist Mono Bold';
+    src: url('../../../../geist-font/GeistMono/ttf/GeistMono-Bold.ttf');
+}
+
+.root {
+    -fx-base: #121212;
+    -fx-background: #121212;
+    -fx-control-inner-background: #171717;
+}
+
+.sound-editor {
+    -fx-background-color: #121212;
+}
+
+/* BAND STYLING */
+.header-band {
+    -fx-background-color: #1E1E1E;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 0 0 1 0;
+}
+
+.footer-band {
+    -fx-background-color: #1E1E1E;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1 0 0 0;
+}
+
+.mod-deck-band {
+    -fx-background-color: #171717;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1 0 1 0;
+}
+
+/* PANEL STYLING (The 1E1E1E Gray Background) */
+.synth-panel {
+    -fx-background-color: #1E1E1E;
+    -fx-background-radius: 6px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+}
+
+.synth-panel-header {
+    -fx-background-color: #171717;
+    -fx-background-radius: 6px 6px 0 0;
+    -fx-padding: 4 10;
+    -fx-border-color: transparent transparent #2E2E2E transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.synth-panel:active, .synth-panel:selected {
+    -fx-border-color: rgba(0, 255, 255, 0.6);
+}
+
+.synth-panel-header:active, .synth-panel-header:selected {
+    -fx-background-color: rgba(0, 255, 255, 0.1);
+}
+
+.synth-panel-title {
+    -fx-font-family: 'Geist Mono Bold';
+    -fx-font-size: 11px;
+    -fx-text-fill: #00FFFF; /* Primary Cyan */
+    -fx-text-transform: uppercase;
+}
+
+.synth-panel-content {
+    -fx-padding: 8px;
+}
+
+/* TYPOGRAPHY */
+.tactical-label {
+    -fx-font-family: 'Geist Mono Bold';
+    -fx-font-size: 11px;
+    -fx-text-fill: #a0a0a0;
+}
+
+/* SLIDER STYLING (Tactical Vertical Sliders) */
+.slider .track {
+    -fx-background-color: #383838;
+    -fx-background-radius: 2px;
+}
+
+.slider .thumb {
+    -fx-background-color: #D4D4D4;
+    -fx-background-radius: 2px;
+}
+
+.slider:vertical .track {
+    -fx-pref-width: 4px;
+}
+
+.slider:vertical .thumb {
+    -fx-pref-width: 14px;
+    -fx-pref-height: 8px;
+}
+
+/* ACCENT SLIDER (Special Orange Styling) */
+.accent-slider .thumb {
+    -fx-background-color: #FFA500; /* Orange */
+}
+
+.accent-slider .track {
+    -fx-background-color: linear-gradient(to bottom, #FF4500, #FFA500, #383838);
+}
+
+/* CONTROLS */
+.combo-box, .text-field {
+    -fx-background-color: #171717;
+    -fx-background-radius: 2px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-text-fill: #D4D4D4;
+    -fx-font-family: 'Geist Mono';
+    -fx-font-size: 11px;
+}
+
+.compact-combo {
+    -fx-font-size: 12px;
+    -fx-padding: 0;
+    -fx-pref-height: 24px;
+    -fx-min-height: 24px;
+    -fx-max-height: 24px;
+}
+
+.compact-combo .list-cell {
+    -fx-padding: 2 4 2 4;
+}
+
+.compact-button, .compact-toggle {
+    -fx-background-color: #171717;
+    -fx-text-fill: #808080;
+    -fx-font-family: 'Geist Mono';
+    -fx-font-size: 9px;
+    -fx-padding: 0 4;
+    -fx-background-radius: 2px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+}
+
+.compact-toggle:selected {
+    -fx-background-color: #00FFFF;
+    -fx-text-fill: #050505;
+    -fx-border-color: #00FFFF;
+    -fx-font-size: 11px;
+}
+
+.mute-button {
+    -fx-background-color: #171717;
+    -fx-text-fill: #808080; /* "PLAY" state (gray) */
+    -fx-font-family: 'Geist Mono';
+    -fx-font-size: 9px;
+    -fx-padding: 0 4;
+    -fx-background-radius: 2px;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+}
+
+.mute-button:selected {
+    -fx-background-color: rgba(255, 69, 0, 0.2); /* Destructive Red Tint */
+    -fx-text-fill: #FF4500; /* Red Text */
+    -fx-border-color: rgba(255, 69, 0, 0.4);
+}
+
+
+.flat-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #808080;
+    -fx-font-size: 10px;
+    -fx-font-family: 'Geist Mono Bold';
+    -fx-border-color: transparent transparent #2E2E2E transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.flat-button:hover {
+    -fx-text-fill: #00FFFF;
+    -fx-border-color: transparent transparent #00FFFF transparent;
+}
+
+.multi-row:hover {
+    -fx-background-color: #252525 !important;
+}
+
+.arp-step-visualizer {
+    -fx-background-color: #171717;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1px;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-padding: 0 1 0 1;
+}
+
+.arp-step-visualizer .region {
+    -fx-background-color: rgba(0, 229, 255, 0.3); /* Cyan with opacity */
+    -fx-background-radius: 1px;
+}
+
+/* MOD MATRIX STYLING */
+.matrix-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-viewport-background: #1e1e1e;
+    -fx-padding: 0;
+}
+
+.matrix-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #171717;
+}
+
+.matrix-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #383838;
+}
+
+.details-info {
+    -fx-font-family: 'Geist Mono Bold';
+    -fx-font-size: 14px;
+    -fx-text-fill: #D4D4D4;
+}
+
+.details-panel {
+    -fx-background-color: #171717;
+    -fx-border-color: #2E2E2E;
+    -fx-border-width: 1 0 0 0;
+}
+
