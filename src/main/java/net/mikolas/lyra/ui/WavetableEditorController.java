@@ -55,6 +55,11 @@ public class WavetableEditorController {
     private int selectedWaveIndex = 0;
     private int hoveredWaveIndex = -1;
 
+    // Getter for testing
+    public Wavetable getWavetable() {
+        return wavetable;
+    }
+
     // Drawing & Interaction State
     private boolean isDrawing = false;
     private boolean isSliding = false;

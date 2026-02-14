@@ -85,6 +85,26 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- TestFX -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>4.0.18</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>4.0.18</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>21.0.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -125,6 +145,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.3</version>
+                <configuration>
+                    <argLine>
+                        --add-exports javafx.graphics/com.sun.glass.ui=org.testfx
+                        --add-exports javafx.graphics/com.sun.glass.ui.monocle=org.testfx
+                        --add-opens net.mikolas.lyra/net.mikolas.lyra.ui=org.testfx
+                    </argLine>
+                </configuration>
             </plugin>
 
             <!-- Maven Shade Plugin (for fat JAR) -->
