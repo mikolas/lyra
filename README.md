@@ -43,11 +43,11 @@ Modern, professional sound editor and librarian for the Waldorf Blofeld synthesi
 
 ## Tech Stack
 
-- **Java 25** - Modern language features (virtual threads, pattern matching, records)
-- **JavaFX 25** - Cross-platform GUI with reactive Properties
+- **Java 25** - Modern language features (sealed interfaces, records, pattern matching)
+- **JavaFX 23** - Cross-platform GUI with reactive Properties
 - **AtlantaFX** - Modern dark theme system
 - **Maven** - Build system with dependency management
-- **SQLite + HikariCP** - Lightweight database with connection pooling
+- **SQLite + ORMLite** - Lightweight database with ORM
 - **javax.sound.midi** - Built-in MIDI support
 - **JUnit 5** - Comprehensive test coverage
 
@@ -91,7 +91,7 @@ mvn package
 ### From Source
 ```bash
 mvn clean package
-java -jar target/lyra-1.0-SNAPSHOT.jar
+java -jar target/lyra-0.1.0-SNAPSHOT.jar
 ```
 
 ### Requirements
@@ -120,8 +120,6 @@ java -jar target/lyra-1.0-SNAPSHOT.jar
 4. Click **Apply** to generate interpolated waves
 5. Use **Dump to Hardware** to send to Blofeld
 
-See [WAVETABLE_USER_GUIDE.md](WAVETABLE_USER_GUIDE.md) for detailed instructions.
-
 ## Project Structure
 
 ```
@@ -147,6 +145,12 @@ lyra/
 mvn clean compile          # Compile source
 mvn test                   # Run tests
 mvn package                # Create JAR
+```
+
+### Code Formatting
+```bash
+mvn spotless:check         # Check code formatting
+mvn spotless:apply         # Format code automatically
 ```
 
 ### Code Style

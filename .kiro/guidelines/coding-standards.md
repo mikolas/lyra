@@ -472,27 +472,31 @@ class SoundDaoTest {
 
 ```xml
 <plugin>
-    <groupId>com.spotify.fmt</groupId>
-    <artifactId>fmt-maven-plugin</artifactId>
-    <version>2.21.1</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>format</goal>
-            </goals>
-        </execution>
-    </executions>
+    <groupId>com.diffplug.spotless</groupId>
+    <artifactId>spotless-maven-plugin</artifactId>
+    <version>2.43.0</version>
+    <configuration>
+        <java>
+            <googleJavaFormat>
+                <version>1.19.2</version>
+                <style>GOOGLE</style>
+            </googleJavaFormat>
+            <removeUnusedImports/>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+        </java>
+    </configuration>
 </plugin>
 ```
 
 ### Format Commands
 
 ```bash
-# Format all Java files
-mvn fmt:format
-
 # Check formatting
-mvn fmt:check
+mvn spotless:check
+
+# Format all Java files
+mvn spotless:apply
 ```
 
 ---
