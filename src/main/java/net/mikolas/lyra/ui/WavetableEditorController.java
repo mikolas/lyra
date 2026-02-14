@@ -991,8 +991,20 @@ public class WavetableEditorController {
         ((javafx.stage.Stage)statusLabel.getScene().getWindow()).close(); 
     }
 
-    @FXML private void handleUndo() { /* TODO */ }
-    @FXML private void handleRedo() { /* TODO */ }
+    @FXML private void handleUndo() {
+        if (wavetable != null && wavetable.canUndo()) {
+            wavetable.undo();
+            renderAll();
+        }
+    }
+    
+    @FXML private void handleRedo() {
+        if (wavetable != null && wavetable.canRedo()) {
+            wavetable.redo();
+            renderAll();
+        }
+    }
+    
     @FXML private void handleCopyWave() { /* TODO */ }
     @FXML private void handlePasteWave() { /* TODO */ }
 

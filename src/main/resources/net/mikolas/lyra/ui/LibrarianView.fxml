@@ -54,7 +54,7 @@
 
             <!-- Tools Menu -->
             <Menu text="Tools">
-                <MenuItem text="Sound Editor" onAction="#handleSoundEditor" accelerator="Shortcut+1" disable="true"/>
+                <MenuItem text="Sound Editor" onAction="#handleSoundEditor" accelerator="Shortcut+1"/>
                 <MenuItem text="Multi Editor" onAction="#handleMultiEditor" accelerator="Shortcut+2"/>
                 <MenuItem text="Wavetable Editor" onAction="#handleWavetableEditor" accelerator="Shortcut+3"/>
                 <SeparatorMenuItem/>

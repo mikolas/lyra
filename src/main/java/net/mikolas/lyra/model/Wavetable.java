@@ -45,6 +45,11 @@ public class Wavetable {
 
     private final ObservableList<Keyframe> keyframes = FXCollections.observableArrayList();
     
+    // Undo/Redo support
+    private static final int MAX_UNDO_HISTORY = 50;
+    private final Deque<WavetableState> undoStack = new ArrayDeque<>();
+    private final Deque<WavetableState> redoStack = new ArrayDeque<>();
+    
     // Transient JavaFX properties for UI binding
     private transient StringProperty nameProperty;
     private transient IntegerProperty slotProperty;
@@ -234,5 +239,176 @@ public class Wavetable {
     @Override
     public String toString() {
         return String.format("%s (%s)", getName(), slot == null ? "Unassigned" : "Slot " + slot);
+    }
+
+    // Undo/Redo methods
+    
+    /**
+     * Save current state before making a change.
+     */
+    private void saveState() {
+        WavetableState state = new WavetableState(this);
+        undoStack.push(state);
+        
+        // Limit undo history
+        if (undoStack.size() > MAX_UNDO_HISTORY) {
+            undoStack.removeLast();
+        }
+        
+        // Clear redo stack when new change is made
+        redoStack.clear();
+    }
+    
+    /**
+     * Check if undo is available.
+     */
+    public boolean canUndo() {
+        return !undoStack.isEmpty();
+    }
+    
+    /**
+     * Check if redo is available.
+     */
+    public boolean canRedo() {
+        return !redoStack.isEmpty();
+    }
+    
+    /**
+     * Undo the last change.
+     */
+    public void undo() {
+        if (!canUndo()) return;
+        
+        // Save current state to redo stack
+        redoStack.push(new WavetableState(this));
+        
+        // Restore previous state
+        WavetableState state = undoStack.pop();
+        state.restore(this);
+    }
+    
+    /**
+     * Redo the last undone change.
+     */
+    public void redo() {
+        if (!canRedo()) return;
+        
+        // Save current state to undo stack
+        undoStack.push(new WavetableState(this));
+        
+        // Restore redo state
+        WavetableState state = redoStack.pop();
+        state.restore(this);
+    }
+    
+    /**
+     * Set wave data with undo support.
+     */
+    public void setWave(int index, int[] waveData) {
+        saveState();
+        bouncedWaves[index] = waveData.clone();
+        needsRebounce = false;
+    }
+    
+    /**
+     * Add keyframe with undo support.
+     */
+    public void addKeyframe(int waveIndex) {
+        saveState();
+        Keyframe kf = new Keyframe(waveIndex);
+        int[] wave = bouncedWaves[waveIndex];
+        for (int i = 0; i < 128; i++) {
+            kf.setSample(i, wave[i]);
+        }
+        keyframes.add(kf);
+        keyframes.sort(Comparator.comparingInt(Keyframe::getIndex));
+        markDirty();
+    }
+    
+    /**
+     * Remove keyframe with undo support.
+     */
+    public void removeKeyframe(int waveIndex) {
+        saveState();
+        keyframes.removeIf(kf -> kf.getIndex() == waveIndex);
+        markDirty();
+    }
+    
+    /**
+     * Normalize wave with undo support.
+     */
+    public void normalize(int waveIndex) {
+        saveState();
+        int[] wave = bouncedWaves[waveIndex];
+        int max = 0;
+        for (int sample : wave) {
+            max = Math.max(max, Math.abs(sample));
+        }
+        if (max > 0) {
+            double scale = 1048575.0 / max;
+            for (int i = 0; i < 128; i++) {
+                wave[i] = (int)(wave[i] * scale);
+            }
+        }
+    }
+    
+    /**
+     * Get keyframe indices list (for testing).
+     */
+    public List<Integer> getKeyframeIndices() {
+        return keyframes.stream()
+            .map(Keyframe::getIndex)
+            .toList();
+    }
+    
+    /**
+     * Internal state snapshot for undo/redo.
+     */
+    private static class WavetableState {
+        private final int[][] waves;
+        private final List<Keyframe> keyframesCopy;
+        
+        WavetableState(Wavetable wt) {
+            // Deep copy waves
+            waves = new int[64][128];
+            for (int i = 0; i < 64; i++) {
+                waves[i] = wt.bouncedWaves[i].clone();
+            }
+            
+            // Deep copy keyframes
+            keyframesCopy = new ArrayList<>();
+            for (Keyframe kf : wt.keyframes) {
+                Keyframe copy = new Keyframe(kf.getIndex());
+                for (int i = 0; i < 128; i++) {
+                    copy.setSample(i, kf.getSamples()[i]);
+                }
+                copy.setTransformMode(kf.getTransformMode());
+                copy.setCurveFunction(kf.getCurveFunction());
+                copy.setTranslateOffset(kf.getTranslateOffset());
+                keyframesCopy.add(copy);
+            }
+        }
+        
+        void restore(Wavetable wt) {
+            // Restore waves
+            for (int i = 0; i < 64; i++) {
+                wt.bouncedWaves[i] = waves[i].clone();
+            }
+            
+            // Restore keyframes
+            wt.keyframes.clear();
+            for (Keyframe kf : keyframesCopy) {
+                Keyframe copy = new Keyframe(kf.getIndex());
+                for (int i = 0; i < 128; i++) {
+                    copy.setSample(i, kf.getSamples()[i]);
+                }
+                copy.setTransformMode(kf.getTransformMode());
+                copy.setCurveFunction(kf.getCurveFunction());
+                copy.setTranslateOffset(kf.getTranslateOffset());
+                wt.keyframes.add(copy);
+            }
+            
+            wt.needsRebounce = false;
+        }
     }
 }
