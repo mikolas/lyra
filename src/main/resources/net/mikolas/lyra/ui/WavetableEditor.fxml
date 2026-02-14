@@ -31,8 +31,8 @@
                 <MenuItem text="Close" onAction="#handleClose" accelerator="Shortcut+W"/>
             </Menu>
             <Menu text="Edit">
-                <MenuItem text="Undo" onAction="#handleUndo" accelerator="Shortcut+Z"/>
-                <MenuItem text="Redo" onAction="#handleRedo" accelerator="Shortcut+Shift+Z"/>
+                <MenuItem fx:id="undoMenuItem" text="Undo" onAction="#handleUndo" accelerator="Shortcut+Z"/>
+                <MenuItem fx:id="redoMenuItem" text="Redo" onAction="#handleRedo" accelerator="Shortcut+Shift+Z"/>
                 <SeparatorMenuItem/>
                 <MenuItem text="Copy Wave" onAction="#handleCopyWave" accelerator="Shortcut+C"/>
                 <MenuItem text="Paste Wave" onAction="#handlePasteWave" accelerator="Shortcut+V"/>

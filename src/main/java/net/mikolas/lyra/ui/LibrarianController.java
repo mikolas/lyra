@@ -1136,7 +1136,12 @@ public class LibrarianController {
   // Event handlers - Tools menu
   @FXML
   private void handleSoundEditor() {
-    showNotImplemented("Sound Editor");
+    Sound selected = soundTable.getSelectionModel().getSelectedItem();
+    if (selected == null) {
+      showError("No Sound Selected", "Please select a sound to edit.");
+      return;
+    }
+    handleEdit();
   }
 
   @FXML

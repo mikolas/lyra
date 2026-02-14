@@ -35,6 +35,9 @@ buildNumber.properties
 *.swo
 *~
 
+# Eclipse / Spotless
+bin/
+
 # JavaFX
 .gluon/
 

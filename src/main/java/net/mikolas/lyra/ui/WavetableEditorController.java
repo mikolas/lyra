@@ -31,6 +31,9 @@ public class WavetableEditorController {
     @FXML private Label waveInfoLabel;
     
     @FXML private Label statusLabel;
+    
+    @FXML private MenuItem undoMenuItem;
+    @FXML private MenuItem redoMenuItem;
 
     @FXML private Canvas waveEditCanvas;
     @FXML private ToggleGroup morphGroup;
@@ -51,6 +54,11 @@ public class WavetableEditorController {
     private Wavetable wavetable = Wavetable.createNew();
     private int selectedWaveIndex = 0;
     private int hoveredWaveIndex = -1;
+
+    // Getter for testing
+    public Wavetable getWavetable() {
+        return wavetable;
+    }
 
     // Drawing & Interaction State
     private boolean isDrawing = false;
@@ -114,7 +122,15 @@ public class WavetableEditorController {
         // Initial render
         javafx.application.Platform.runLater(() -> {
             renderAll();
+            updateUndoRedoMenus();
         });
+    }
+    
+    private void updateUndoRedoMenus() {
+        if (undoMenuItem != null && redoMenuItem != null && wavetable != null) {
+            undoMenuItem.setDisable(!wavetable.canUndo());
+            redoMenuItem.setDisable(!wavetable.canRedo());
+        }
     }
 
     private void setupAudioImport() {
@@ -833,6 +849,7 @@ public class WavetableEditorController {
         render3D();
         renderCurrentWave();
         renderEditCanvas();
+        updateUndoRedoMenus();
         System.out.println("renderAll() complete");
     }
 
@@ -991,8 +1008,22 @@ public class WavetableEditorController {
         ((javafx.stage.Stage)statusLabel.getScene().getWindow()).close(); 
     }
 
-    @FXML private void handleUndo() { /* TODO */ }
-    @FXML private void handleRedo() { /* TODO */ }
+    @FXML private void handleUndo() {
+        if (wavetable != null && wavetable.canUndo()) {
+            wavetable.undo();
+            renderAll();
+            updateUndoRedoMenus();
+        }
+    }
+    
+    @FXML private void handleRedo() {
+        if (wavetable != null && wavetable.canRedo()) {
+            wavetable.redo();
+            renderAll();
+            updateUndoRedoMenus();
+        }
+    }
+    
     @FXML private void handleCopyWave() { /* TODO */ }
     @FXML private void handlePasteWave() { /* TODO */ }
 
